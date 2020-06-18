@@ -65,6 +65,14 @@ SHOW_CONFIG = [
         "default_quality": "webm",
         "input_message_content": False,
     },
+    {
+        "keywords": ["tagesthemen-yt", "themen-yt"],
+        "quality": {
+            "stream": "https://www.youtube.com/feeds/videos.xml?channel_id=UC5NOEUbkLheQcaaRldYW5GA",
+        },
+        "default_quality": "stream",
+        "input_message_content": True,
+    }
 ]
 
 with open("credentials.json") as config:
@@ -95,6 +103,24 @@ def get_newest_episode_from_podcast_feed(podcast_url, input_message_content=Fals
             f"{url}", parse_mode=ParseMode.MARKDOWN)
         return [InlineQueryResultVideo(input_message_content=content, id=uid, video_url=url, mime_type=mime_type, thumb_url=thumb, title=title, caption=description, description=description)]
 
+def get_newest_episode_from_yt_feed(yt_url):
+    rss_response = requests.get(yt_url)
+    root = etree.fromstring(rss_response.content)
+    entries = root.findall("entry", root.nsmap)
+
+    for entry in entries:
+        vid_title = entry.find("title", entry.nsmap)
+        if("tagesthemen" in vid_title.text.lower()):
+            media = entry.find("media:group", entry.nsmap)
+            uid = entry.find("yt:videoId", entry.nsmap).text
+            title = vid_title.text
+            thumb = media.find("media:thumbnail", media.nsmap).attrib["url"]
+            description = media.find("media:description", media.nsmap).text
+            url = entry.find("link", entry.nsmap).attrib["href"]
+  
+            content = InputTextMessageContent(
+                f"{url}", parse_mode=ParseMode.MARKDOWN)
+            return [InlineQueryResultVideo(input_message_content=content, id=uid, video_url=url, mime_type="text/html", thumb_url=thumb, title=title, caption=description, description=description)]
 
 def inline_query_handler(update, context):
     query_text = update.inline_query.query
@@ -138,7 +164,10 @@ def inline_query_handler(update, context):
     context.bot.answer_inline_query(query_id, answer, cache_time=CACHE_TIME)
 
 
+
+
 if __name__ == "__main__":
     updater.dispatcher.add_handler(InlineQueryHandler(inline_query_handler))
     updater.start_polling()
     updater.idle()
+    #get_newest_episode_from_yt_feed(SHOW_CONFIG[3]["quality"]["stream"])
