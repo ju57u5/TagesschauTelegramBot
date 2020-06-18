@@ -48,9 +48,10 @@ SHOW_CONFIG = [
             "webl": "https://www.tagesschau.de/export/video-podcast/webl/tagesthemen_https/",
             "webm": "https://www.tagesschau.de/export/video-podcast/webm/tagesthemen_https/",
             "webs": "https://www.tagesschau.de/export/video-podcast/webs/tagesthemen_https/",
+            "yt": "https://www.youtube.com/feeds/videos.xml?channel_id=UC5NOEUbkLheQcaaRldYW5GA"
 
         },
-        "default_quality": "webxl",
+        "default_quality": "yt",
         "input_message_content": True,
     },
     {
@@ -65,14 +66,6 @@ SHOW_CONFIG = [
         "default_quality": "webm",
         "input_message_content": False,
     },
-    {
-        "keywords": ["tagesthemen-yt", "themen-yt"],
-        "quality": {
-            "stream": "https://www.youtube.com/feeds/videos.xml?channel_id=UC5NOEUbkLheQcaaRldYW5GA",
-        },
-        "default_quality": "stream",
-        "input_message_content": True,
-    }
 ]
 
 with open("credentials.json") as config:
@@ -156,18 +149,17 @@ def inline_query_handler(update, context):
             else:
                 input_message_content = show["input_message_content"]
 
-            answer += get_newest_episode_from_podcast_feed(
-                feed, input_message_content)
+            if(quality == "yt"):
+                answer += get_newest_episode_from_yt_feed(feed)
+            else:
+                answer += get_newest_episode_from_podcast_feed(
+                    feed, input_message_content)
 
     if len(answer) > 0:
         logging.info(list(map(lambda x: x.video_url, answer)))
     context.bot.answer_inline_query(query_id, answer, cache_time=CACHE_TIME)
 
-
-
-
 if __name__ == "__main__":
     updater.dispatcher.add_handler(InlineQueryHandler(inline_query_handler))
     updater.start_polling()
     updater.idle()
-    #get_newest_episode_from_yt_feed(SHOW_CONFIG[3]["quality"]["stream"])
