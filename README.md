@@ -6,15 +6,19 @@ Share the current episode of Tagesschau/Tagesthemen with a quick inline command.
 1. Copy crendentials.example.json to credentials.json. 
 ```bash
 cp crendentials.example.json credentials.json
-``` 
+```
 
 2. Add you bot api key to credentials.json.
 
-3. Start the bot. 
+3. Install dependencies
+```bash
+pip install -r requirements.txt
+```
 
+4. Start the bot.
 ```bash
 python bot.py
-``` 
+```
 
 
 ## Usage
