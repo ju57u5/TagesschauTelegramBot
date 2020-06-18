@@ -3,7 +3,7 @@ Share the current episode of Tagesschau/Tagesthemen with a quick inline command.
 
 ## Run
 
-1. Copy crendentials.example.json to credentials.json. 
+1. Copy crendentials.example.json to credentials.json.
 ```bash
 cp crendentials.example.json credentials.json
 ```
