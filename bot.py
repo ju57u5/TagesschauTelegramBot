@@ -43,7 +43,6 @@ SHOW_CONFIG = [
             "webl": "https://www.tagesschau.de/export/video-podcast/webl/tagesschau_https/",
             "webm": "https://www.tagesschau.de/export/video-podcast/webm/tagesschau_https/",
             "webs": "https://www.tagesschau.de/export/video-podcast/webs/tagesschau_https/",
-
         },
         "default_quality": "webs",
         "input_message_content": False,
@@ -56,7 +55,6 @@ SHOW_CONFIG = [
             "webm": "https://www.tagesschau.de/export/video-podcast/webm/tagesthemen_https/",
             "webs": "https://www.tagesschau.de/export/video-podcast/webs/tagesthemen_https/",
             "yt": "https://www.youtube.com/feeds/videos.xml?channel_id=UC5NOEUbkLheQcaaRldYW5GA"
-
         },
         "default_quality": "yt",
         "input_message_content": True,
@@ -67,8 +65,6 @@ SHOW_CONFIG = [
             "webxl": "https://www.tagesschau.de/export/video-podcast/webxl/tagesschau-in-100-sekunden_https/",
             "webl": "https://www.tagesschau.de/export/video-podcast/webl/tagesschau-in-100-sekunden_https/",
             "webm": "https://www.tagesschau.de/export/video-podcast/webm/tagesschau-in-100-sekunden_https/",
-            "webs": "https://www.tagesschau.de/export/video-podcast/webs/tagesschau-in-100-sekunden_https/",
-
         },
         "default_quality": "webm",
         "input_message_content": False,
