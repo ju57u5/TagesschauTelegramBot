@@ -69,6 +69,39 @@ SHOW_CONFIG = [
         "default_quality": "webm",
         "input_message_content": False,
     },
+    {
+        "keywords": ["all", "nachtmagazin", "nacht"],
+        "quality": {
+            "webxl": "https://www.tagesschau.de/export/video-podcast/webxl/nachtmagazin_https/",
+            "webl": "https://www.tagesschau.de/export/video-podcast/webl/nachtmagazin_https/",
+            "webm": "https://www.tagesschau.de/export/video-podcast/webm/nachtmagazin_https/",
+            "webs": "https://www.tagesschau.de/export/video-podcast/webs/nachtmagazin_https/",
+        },
+        "default_quality": "webl",
+        "input_message_content": True,
+    },
+    {
+        "keywords": ["all", "berichtausberlin", "bericht", "berlin", "bab"],
+        "quality": {
+            "webxl": "https://www.tagesschau.de/export/video-podcast/webxl/bab_https/",
+            "webl": "https://www.tagesschau.de/export/video-podcast/webl/bab_https/",
+            "webm": "https://www.tagesschau.de/export/video-podcast/webm/bab_https/",
+            "webs": "https://www.tagesschau.de/export/video-podcast/webs/bab_https/",
+        },
+        "default_quality": "webl",
+        "input_message_content": True,
+    },
+    {
+        "keywords": ["all", "tageschau20", "20"],
+        "quality": {
+            "webxl": "https://www.tagesschau.de/export/video-podcast/webxl/tagesschau-vor-20-jahren_https/",
+            "webl": "https://www.tagesschau.de/export/video-podcast/webl/tagesschau-vor-20-jahren_https/",
+            "webm": "https://www.tagesschau.de/export/video-podcast/webm/tagesschau-vor-20-jahren_https/",
+            "webs": "https://www.tagesschau.de/export/video-podcast/webs/tagesschau-vor-20-jahren_https/",
+        },
+        "default_quality": "webs",
+        "input_message_content": False,
+    },
 ]
 
 
