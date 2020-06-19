@@ -151,25 +151,27 @@ def inline_query_handler(update, context):
     query_text = query_text.lower()
     query_args = query_text.split()
 
-    keyword = query_args[0]
-    quality = query_args[1] if len(query_args) > 1 else None
-    input_message_content_parameter = query_args[2] if len(
+    keyword_arg = query_args[0]
+    quality_arg = query_args[1] if len(query_args) > 1 else None
+    input_message_content_arg = query_args[2] if len(
         query_args) > 2 else None
     answer = []
 
     for show in SHOW_CONFIG:
-        if keyword in show["keywords"]:
-            if quality:
+        if keyword_arg in show["keywords"]:
+            if quality_arg:
                 try:
+                    quality = quality_arg
                     feed = show["quality"][quality]
                 except KeyError:
                     continue
             else:
-                default_quality = show["default_quality"]
-                feed = show["quality"][default_quality]
-
-            if input_message_content_parameter is not None:
-                input_message_content = input_message_content_parameter.lower() in [
+                quality = show["default_quality"]
+                feed = show["quality"][quality]
+            
+            
+            if input_message_content_arg is not None:
+                input_message_content = input_message_content_arg.lower() in [
                     "true", "1", "yes"]
             else:
                 input_message_content = show["input_message_content"]
