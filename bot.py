@@ -108,23 +108,32 @@ def get_newest_episode_from_podcast_feed(podcast_url, input_message_content=Fals
     return [InlineQueryResultVideo(input_message_content=content, id=uid, video_url=url, mime_type=mime_type, thumb_url=thumb, title=title, caption=description, description=description)]
 
 def get_newest_episode_from_yt_feed(yt_url):
+    """
+    Get the newest episode from the yt feed with a specific title and return a list of
+    InlineQueryResultVideos with the only member containing that episode.
+
+    Keyword arguments:
+    yt_url (str): URL of the youtube atom feed where the episode should be taken from. The episode
+                  will be filterd out based on the title.
+    """
     rss_response = requests.get(yt_url)
     root = etree.fromstring(rss_response.content)
     entries = root.findall("entry", root.nsmap)
 
     for entry in entries:
         vid_title = entry.find("title", entry.nsmap)
-        if("tagesthemen" in vid_title.text.lower()):
+        if "tagesthemen" in vid_title.text.lower():
             media = entry.find("media:group", entry.nsmap)
             uid = entry.find("yt:videoId", entry.nsmap).text
             title = vid_title.text
             thumb = media.find("media:thumbnail", media.nsmap).attrib["url"]
             description = media.find("media:description", media.nsmap).text
             url = entry.find("link", entry.nsmap).attrib["href"]
-  
+
             content = InputTextMessageContent(
                 f"{url}", parse_mode=ParseMode.MARKDOWN)
             return [InlineQueryResultVideo(input_message_content=content, id=uid, video_url=url, mime_type="text/html", thumb_url=thumb, title=title, caption=description, description=description)]
+    return []
 
 def inline_query_handler(update, context):
     """
@@ -165,7 +174,7 @@ def inline_query_handler(update, context):
             else:
                 input_message_content = show["input_message_content"]
 
-            if(quality == "yt"):
+            if quality == "yt":
                 answer += get_newest_episode_from_yt_feed(feed)
             else:
                 answer += get_newest_episode_from_podcast_feed(
